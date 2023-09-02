@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version "3.1.0"
+    id 'edu.sc.seis.launch4j' version '2.4.6'
+}
+
+apply plugin: "io.franzbecker.gradle-lombok"
+
+group = 'app.stats.exporter'
+version = '1.0-SNAPSHOT'
+
+ext {
+    set('lombokVersion', '3.1.0')
+    set('slf4jVersion', '1.7.26')
+}
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://plugins.gradle.org/m2/' }
+    }
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
+    // workaround for runtime exceptions in handling LocalDateTime object
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1'
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+    implementation "io.franzbecker:gradle-lombok:${lombokVersion}"
+    compileOnly('org.projectlombok:lombok')
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes "Main-Class": "app.stats.exporter.Main"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+createExe {
+    headerType='console'
+    outfile = "TelegramStatsExporter.exe"
+    //icon = "${projectDir}/src/main/resources/images/icon.ico"
+    jar = 'lib/TelegramStatsExporter-1.0-SNAPSHOT.jar'
+}
+
+test {
+    useJUnitPlatform()
+}
