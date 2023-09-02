@@ -19,18 +19,24 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
+        // Init fileName and ConnectionString
+        String fileName = args.length == 0 ? "result" : args[0];
+        if (fileName.endsWith(".json")){
+            fileName = fileName.replace(".json", "");
+        }
+        String connString = "jdbc:sqlite:" + fileName + "-exported.db";
+
         try {
 
-            log.info("Trying to open result.json file...");
+            log.info("Trying to open {}.json...", fileName);
             log.info("This could take a while if the file is large!");
             TelegramExportData exportData = objectMapper.readValue(
-                    new File("result.json"), TelegramExportData.class);
-
-            log.info("Successfully retrieved JSON file");
+                    new File(fileName + ".json"), TelegramExportData.class);
+            log.info("Successfully parsed file");
 
             log.info("Exporting chat info to DB");
-            DBHelper.initDB();
-            DBHelper.exportChatInfo(exportData.getChatId(), exportData.getName(), exportData.getType());
+            DBHelper.initDB(connString);
+            DBHelper.exportChatInfo(connString, exportData.getChatId(), exportData.getName(), exportData.getType());
 
             if (!exportData.getMessages().isEmpty()) {
 
@@ -44,7 +50,7 @@ public class Main {
                 for (TelegramMessage message : exportMessages) {
 
                     log.info("Exporting message {}/{} to DB...", i, messageCount);
-                    DBHelper.exportMessageInfo(message);
+                    DBHelper.exportMessageInfo(connString, message);
                     i++;
 
                 }
@@ -53,7 +59,7 @@ public class Main {
 
             } else {
 
-                log.error("Message list in result.json is empty. Exiting in 3 seconds...");
+                log.error("Message list in {}.json is empty. Exiting in 3 seconds...", fileName);
                 Thread.sleep(3000);
             }
 
