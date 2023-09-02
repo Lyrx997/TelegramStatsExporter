@@ -20,18 +20,14 @@ public class Main {
         objectMapper.registerModule(new JavaTimeModule());
 
         // Init fileName and ConnectionString
-        String fileName = args.length == 0 ? "result" : args[0];
-        if (fileName.endsWith(".json")){
-            fileName = fileName.replace(".json", "");
-        }
-        String connString = "jdbc:sqlite:" + fileName + "-exported.db";
+        String fileName = args.length == 0 ? "result.json" : args[0];
+        String connString = "jdbc:sqlite:" + fileName.replace(".json", "") + "-exported.db";
 
         try {
 
-            log.info("Trying to open {}.json...", fileName);
+            log.info("Trying to parse {}...", fileName);
             log.info("This could take a while if the file is large!");
-            TelegramExportData exportData = objectMapper.readValue(
-                    new File(fileName + ".json"), TelegramExportData.class);
+            TelegramExportData exportData = objectMapper.readValue(new File(fileName), TelegramExportData.class);
             log.info("Successfully parsed file");
 
             log.info("Exporting chat info to DB");
@@ -59,7 +55,7 @@ public class Main {
 
             } else {
 
-                log.error("Message list in {}.json is empty. Exiting in 3 seconds...", fileName);
+                log.error("Message list in {} is empty. Exiting in 3 seconds...", fileName);
                 Thread.sleep(3000);
             }
 
