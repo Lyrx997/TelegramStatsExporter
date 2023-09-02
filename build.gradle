@@ -7,7 +7,7 @@ plugins {
 apply plugin: "io.franzbecker.gradle-lombok"
 
 group = 'app.stats.exporter'
-version = '1.0'
+version = '1.0.1'
 
 ext {
     set('lombokVersion', '3.1.0')
@@ -47,9 +47,9 @@ jar {
 
 createExe {
     headerType = 'console'
-    outfile = "TelegramStatsExporter.exe"
+    outfile = "TelegramStatsExporter-1.0.1.exe"
     //icon = "${projectDir}/src/main/resources/images/icon.ico"
-    jar = 'lib/TelegramStatsExporter-1.0.jar'
+    jar = 'lib/TelegramStatsExporter-1.0.1.jar'
 }
 
 test {

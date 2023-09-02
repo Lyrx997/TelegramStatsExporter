@@ -91,7 +91,7 @@ public class DBHelper {
             return "Media without description";
         }
 
-        return textEntities.stream().map(TelegramMessageTextEntities::getText).reduce(String::concat).toString();
+        return textEntities.stream().map(TelegramMessageTextEntities::getText).reduce(String::concat).get();
     }
 
 }
