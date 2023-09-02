@@ -16,7 +16,7 @@ import static app.stats.exporter.db.DBConstants.*;
 @Slf4j
 public class DBHelper {
 
-    public static void initDB(String connString) throws InterruptedException {
+    public static void initDB(String connString) {
 
         try {
 
@@ -33,8 +33,7 @@ public class DBHelper {
         }
     }
 
-    public static void exportChatInfo(String connString, String chatId, String name, String type)
-            throws InterruptedException {
+    public static void exportChatInfo(String connString, String chatId, String name, String type) {
 
         try {
 
@@ -53,7 +52,7 @@ public class DBHelper {
 
     }
 
-    public static void exportMessageInfo(String connString, TelegramMessage message) throws InterruptedException {
+    public static void exportMessageInfo(String connString, TelegramMessage message) {
 
         try {
 
