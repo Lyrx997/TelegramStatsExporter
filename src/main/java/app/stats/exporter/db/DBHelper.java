@@ -33,6 +33,7 @@ public class DBHelper {
             // Create required tables
             statement.execute(CHAT_INFO_TABLE);
             statement.execute(MESSAGES_TABLE);
+            conn.close();
 
         } catch (SQLException ex) {
             log.error("Table creation failed. Table infos {} {}", CHAT_INFO_TABLE, MESSAGES_TABLE);
@@ -50,6 +51,7 @@ public class DBHelper {
             statement.setString(CHAT_INFO_TYPE_COL, type);
             statement.setString(CHAT_INFO_CHATID_COL, chatId);
             statement.execute();
+            conn.close();
 
         } catch (SQLException ex){
             log.debug("Chat info variables: {} {} {}", chatId, name, type);
@@ -78,6 +80,7 @@ public class DBHelper {
             statement.setString(MESSAGES_MIMETYPE_COL, message.getMimeType());
             statement.setString(MESSAGES_TEXT_COL, getText(message.getTextEntities()));
             statement.execute();
+            conn.close();
 
         } catch (SQLException ex) {
             log.debug("Message infos: {}", message);
