@@ -16,8 +16,8 @@ public class TelegramExportData implements Serializable {
     private String type;
 
     @JsonProperty("id")
-    private String id;
+    private String chatId;
 
     @JsonProperty("messages")
-    private List<TelegramMessages> messages;
+    private List<TelegramMessage> messages;
 }

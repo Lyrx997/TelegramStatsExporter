@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TelegramMessagesTextEntities implements Serializable {
+public class TelegramMessageTextEntities implements Serializable {
 
     @JsonProperty("type")
     private String type;

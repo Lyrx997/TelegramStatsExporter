@@ -12,6 +12,7 @@ version = '1.0-SNAPSHOT'
 ext {
     set('lombokVersion', '3.1.0')
     set('slf4jVersion', '1.7.26')
+    set('logbackVersion', '1.2.9')
 }
 
 
@@ -26,8 +27,9 @@ dependencies {
     // workaround for runtime exceptions in handling LocalDateTime object
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1'
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
     implementation "io.franzbecker:gradle-lombok:${lombokVersion}"
+    implementation "org.xerial:sqlite-jdbc:3.15.1"
     compileOnly('org.projectlombok:lombok')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
