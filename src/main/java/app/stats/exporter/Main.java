@@ -147,7 +147,7 @@ public class Main {
     }
 
     private static void printHelp() {
-        System.out.println("\nSimple Telegram Stats Exporter, v1.0.2\n");
+        System.out.println("\nSimple Telegram Stats Exporter, v1.0.3\n");
         System.out.println("Usage: TelegramStatsExporter [<file_names>...]\n");
         System.out.println("If filenames are unset, then will be used the default filename (result.json)\n");
     }
