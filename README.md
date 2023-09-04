@@ -1,16 +1,16 @@
 # TelegramStatsExporter
-Simple Java application to export Telegram JSON chat stats into a SQLite DB.
+Simple Java app to export Telegram JSON chat stats into a SQLite DB.
 
 ## Features
-This program can export into a SQLite DB the following properties:
+This app creates, from a Telegram JSON chat file, a SQLite DB with the following properties:
 - Chat name
 - Chat type (group, channel, etc)
 - Chat ID
-- Message internal ID
+- Message sequential ID
 - Referenced Message ID (if message is a reply for another message)
 - Message type
 - Message sent date
-- Original sender Username (if the message is forwarded from another chat)
+- Original sender Username (if message is forwarded from another chat)
 - Username
 - User ID
 - Media Type and Mime Type (for media files)
@@ -24,7 +24,7 @@ JDK 11 or higher. On Windows, remember to configure the `JAVA_HOME` environment 
 If filenames are unset, then will be used the default filename (`result.json`).
 
 ## Build
-Run `gradlew jar` or `gradlew createExe` if you want to use the application as an .exe file.
+Install JDK11, then run `gradlew jar` or `gradlew createExe` if you want to use the app as an .exe.
 
 ## Libraries
 - [Gradle-launch4j](https://github.com/TheBoegl/gradle-launch4j), for building Windows executable
